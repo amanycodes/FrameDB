@@ -10,6 +10,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/amanycodes/greenlight/internal/data"
 	_ "github.com/lib/pq"
 )
 
@@ -29,6 +30,7 @@ type config struct {
 type application struct {
 	config config
 	logger *log.Logger
+	models data.Models
 }
 
 func main() {
@@ -42,19 +44,19 @@ func main() {
 	flag.StringVar(&cfg.db.maxIdleTime, "db-max-idle-time", "15m", "PostgreSQL max connection idle time")
 	flag.Parse()
 
-	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
+	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime|log.Lshortfile)
 
 	db, err := openDB(cfg)
 	if err != nil {
 		logger.Fatal(err)
 	}
 	defer db.Close()
-
 	logger.Printf("database connection pool established")
 
 	app := &application{
 		config: cfg,
 		logger: logger,
+		models: data.NewModels(db),
 	}
 
 	srv := &http.Server{
