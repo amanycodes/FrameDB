@@ -6,7 +6,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/amanycodes/greenlight/internal/validator"
+	"github.com/amanycodes/FrameDB/internal/validator"
 	"github.com/lib/pq"
 )
 

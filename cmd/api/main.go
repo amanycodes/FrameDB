@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/amanycodes/greenlight/internal/data"
+	"github.com/amanycodes/FrameDB/internal/data"
 	_ "github.com/lib/pq"
 )
 
